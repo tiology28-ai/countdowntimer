@@ -1,0 +1,22 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #1a1a2e; /* Dark background */
+    color: white;
+    font-family: sans-serif;
+}
+
+#timer-display {
+    font-size: 15vw; /* Massive font size for presentation */
+    font-weight: bold;
+    /* Optional: A color change for an alert */
+    transition: color 0.5s ease-in-out; 
+}
+
+/* This class will be added/removed by JavaScript for visual alerts */
+.alert-red {
+    color: #ff4757; /* Bright red */
+}
