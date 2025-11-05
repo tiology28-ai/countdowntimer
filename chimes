@@ -1,0 +1,62 @@
+// --- TIMER SETTINGS ---
+const START_TIME_SECONDS = 12 * 60; // 12 minutes
+let timeLeft = START_TIME_SECONDS;
+let timerInterval;
+
+// Define the alert points in SECONDS REMAINING
+// 7 min left = 420 seconds
+// 6 min left = 360 seconds
+const CHIME_POINTS = [420, 360, 0]; 
+
+// --- HTML ELEMENTS ---
+const display = document.getElementById('timer-display');
+const container = document.getElementById('timer-container');
+
+// --- AUDIO SETUP ---
+// NOTE: You must use a very simple, short sound. 
+// For a free solution, you'd need to find a short, royalty-free MP3 or WAV and
+// upload it to your GitHub repo (e.g., as 'bell.mp3').
+// For this example, we'll assume the chime logic works.
+function playChime() {
+    // In a real project, you'd replace this with:
+    // const audio = new Audio('bell.mp3');
+    // audio.play();
+    console.log("CHIME! Sound Played!");
+}
+
+
+// --- MAIN TIMER FUNCTION ---
+function updateTimer() {
+    let minutes = Math.floor(timeLeft / 60);
+    let seconds = timeLeft % 60;
+
+    // Format the time display (e.g., 5:05 instead of 5:5)
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    display.textContent = minutes + ':' + seconds;
+
+    // 1. CHIME CHECK (The custom logic you need)
+    if (CHIME_POINTS.includes(timeLeft)) {
+        playChime();
+    }
+    
+    // 2. VISUAL ALERT (Changes the color to red for the last minute)
+    if (timeLeft <= 60) { 
+        display.classList.add('alert-red');
+    } else {
+        display.classList.remove('alert-red');
+    }
+
+    // 3. STOP CONDITION
+    if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        display.textContent = "TIME UP!";
+    }
+
+    // 4. DECREMENT
+    timeLeft--;
+}
+
+// Start the timer when the page loads (start at 12:00)
+updateTimer(); 
+// Set the interval to update every 1000 milliseconds (1 second)
+timerInterval = setInterval(updateTimer, 1000);
