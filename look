@@ -1,22 +1,23 @@
-body {
+/* style.css */
+
+#timer-container {
     display: flex;
-    justify-content: center;
+    flex-direction: column; /* Stack the timer and button vertically */
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #1a1a2e; /* Dark background */
+}
+
+#start-button {
+    font-size: 2vw;
+    padding: 15px 30px;
+    margin-top: 30px;
+    cursor: pointer;
+    background-color: #3f72af;
     color: white;
-    font-family: sans-serif;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
 }
 
-#timer-display {
-    font-size: 15vw; /* Massive font size for presentation */
-    font-weight: bold;
-    /* Optional: A color change for an alert */
-    transition: color 0.5s ease-in-out; 
-}
-
-/* This class will be added/removed by JavaScript for visual alerts */
-.alert-red {
-    color: #ff4757; /* Bright red */
+#start-button:hover {
+    background-color: #1a4e95;
 }
