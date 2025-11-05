@@ -8,8 +8,8 @@
 <body>
     <div id="timer-container">
         <h1 id="timer-display">12:00</h1>
+        <button id="start-button">START 12-MINUTE TIMER</button> 
     </div>
 
     <script src="script.js"></script>
 </body>
-</html>
