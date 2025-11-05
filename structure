@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Presentation Timer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="timer-container">
+        <h1 id="timer-display">12:00</h1>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
