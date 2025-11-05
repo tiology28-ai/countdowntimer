@@ -2,28 +2,24 @@
 const START_TIME_SECONDS = 12 * 60; // 12 minutes
 let timeLeft = START_TIME_SECONDS;
 let timerInterval;
+let timerRunning = false;
 
-// Define the alert points in SECONDS REMAINING
-// 7 min left = 420 seconds
-// 6 min left = 360 seconds
+// Define the alert points in SECONDS REMAINING (7, 6, 0 minutes left)
 const CHIME_POINTS = [420, 360, 0]; 
 
 // --- HTML ELEMENTS ---
 const display = document.getElementById('timer-display');
-const container = document.getElementById('timer-container');
+const startButton = document.getElementById('start-button'); // Get the new button
 
 // --- AUDIO SETUP ---
-// NOTE: You must use a very simple, short sound. 
-// For a free solution, you'd need to find a short, royalty-free MP3 or WAV and
-// upload it to your GitHub repo (e.g., as 'bell.mp3').
-// For this example, we'll assume the chime logic works.
 function playChime() {
-    // In a real project, you'd replace this with:
-    // const audio = new Audio('bell.mp3');
-    // audio.play();
+    // NOTE: If you do not have an actual 'bell.mp3' file in your repository, 
+    // this will just print to the console. 
+    // If you add a simple sound file, uncomment the lines below.
     console.log("CHIME! Sound Played!");
+    // const audio = new Audio('bell.mp3'); 
+    // audio.play(); 
 }
-
 
 // --- MAIN TIMER FUNCTION ---
 function updateTimer() {
@@ -34,12 +30,12 @@ function updateTimer() {
     seconds = seconds < 10 ? '0' + seconds : seconds;
     display.textContent = minutes + ':' + seconds;
 
-    // 1. CHIME CHECK (The custom logic you need)
+    // 1. CHIME CHECK 
     if (CHIME_POINTS.includes(timeLeft)) {
         playChime();
     }
     
-    // 2. VISUAL ALERT (Changes the color to red for the last minute)
+    // 2. VISUAL ALERT (Changes the color for the last 60 seconds)
     if (timeLeft <= 60) { 
         display.classList.add('alert-red');
     } else {
@@ -50,13 +46,22 @@ function updateTimer() {
     if (timeLeft <= 0) {
         clearInterval(timerInterval);
         display.textContent = "TIME UP!";
+        startButton.textContent = "RESET";
+        startButton.style.display = 'block';
+        return; 
     }
 
     // 4. DECREMENT
     timeLeft--;
 }
 
-// Start the timer when the page loads (start at 12:00)
-updateTimer(); 
-// Set the interval to update every 1000 milliseconds (1 second)
-timerInterval = setInterval(updateTimer, 1000);
+// --- START BUTTON LOGIC ---
+startButton.addEventListener('click', function() {
+    if (!timerRunning) {
+        // Start the timer
+        timerInterval = setInterval(updateTimer, 1000);
+        timerRunning = true;
+        startButton.style.display = 'none'; // Hide button once started
+    } 
+    // Note: If you implement a 'RESET' state in the future, you'd handle it here.
+});
